@@ -2,31 +2,13 @@
 #define PROYECTO_FINAL_STRUCTS_H
 
 #include <string>
+#include "ESTRUCTURAS/MatrizDispersa.h"
 using namespace std;
 
-// NODO de la Matriz Dispersa
-struct NodoMatriz {
-    int fila;
-    int columna;
-    string color;
-    NodoMatriz* derecha;
-    NodoMatriz* abajo;
-
-    NodoMatriz(int f, int c, string col) {
-        fila = f;
-        columna = c;
-        color = col;
-        derecha = nullptr;
-        abajo = nullptr;
-    }
-};
-
-// NODO del ABB de Capas
-// (forward declaration, la capa vive dentro del nodo)
+// Forward declaration
 struct NodoABBCapa;
 
-// NODO de la lista de capas de una imagen
-// Solo guarda un PUNTERO al nodo del ABB, no una copia
+// Nodo de lista de capas por imagen
 struct NodoCapa {
     NodoABBCapa* refCapa;
     NodoCapa* siguiente;
@@ -37,25 +19,27 @@ struct NodoCapa {
     }
 };
 
-// NODO del ABB de Capas
+// Nodo del ABB de Capas
 struct NodoABBCapa {
     int id;
-    NodoMatriz* matriz;      // cabeza de la matriz dispersa
+    NodoMatriz* matriz;
+    MatrizDispersa* matrizObj;
     NodoABBCapa* izquierda;
     NodoABBCapa* derecha;
 
     NodoABBCapa(int _id) {
         id = _id;
         matriz = nullptr;
+        matrizObj = nullptr;
         izquierda = nullptr;
         derecha = nullptr;
     }
 };
 
-// IMAGEN
+// Imagen con lista de capas
 struct Imagen {
     int id;
-    NodoCapa* listaCapas;    // lista de capas en orden de superposición
+    NodoCapa* listaCapas;
 
     Imagen(int _id) {
         id = _id;
@@ -63,7 +47,7 @@ struct Imagen {
     }
 };
 
-// NODO de la Lista Circular Doble de Imágenes
+// Nodo de Lista Circular Doble de Imágenes
 struct NodoImagen {
     Imagen imagen;
     NodoImagen* siguiente;
@@ -75,7 +59,7 @@ struct NodoImagen {
     }
 };
 
-// NODO de la lista de imágenes de un usuario
+// Nodo de lista de imágenes por usuario
 struct NodoImgUsuario {
     int idImagen;
     NodoImgUsuario* siguiente;
@@ -86,7 +70,7 @@ struct NodoImgUsuario {
     }
 };
 
-// NODO del ABB de Usuarios
+// Nodo del ABB de Usuarios
 struct NodoABBUsuario {
     string nombre;
     NodoImgUsuario* listaImagenes;
