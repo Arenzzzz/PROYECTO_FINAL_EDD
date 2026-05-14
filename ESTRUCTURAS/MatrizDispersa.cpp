@@ -21,7 +21,7 @@ NodoMatriz* MatrizDispersa::buscarOCrearFila(int fila) {
     NodoMatriz* actual = cabeza;
     NodoMatriz* anterior = nullptr;
 
-    // Recorremos buscando la fila
+    // Recorre buscando la fila
     while (actual != nullptr && actual->fila < fila) {
         anterior = actual;
         actual = actual->abajo;
@@ -32,7 +32,7 @@ NodoMatriz* MatrizDispersa::buscarOCrearFila(int fila) {
         return actual;
     }
 
-    // No existe, la creamos en la posición correcta
+    // No existe, se crea en la posición correcta
     NodoMatriz* nueva = new NodoMatriz(fila, -1, "");
     nueva->abajo = actual;
 
@@ -45,24 +45,24 @@ NodoMatriz* MatrizDispersa::buscarOCrearFila(int fila) {
     return nueva;
 }
 
-// Busca la columna en una fila, si no existe la crea en orden
+// Busca la columna en una fila, si no existe se crea en orden
 NodoMatriz* MatrizDispersa::buscarOCrearColumna(NodoMatriz* nodoFila, int columna, string color) {
     NodoMatriz* actual = nodoFila->derecha;
     NodoMatriz* anterior = nodoFila;
 
-    // Recorremos buscando la columna
+    // Se recorre buscando la columna
     while (actual != nullptr && actual->columna < columna) {
         anterior = actual;
         actual = actual->derecha;
     }
 
-    // Ya existe esa columna, actualizamos color
+    // Ya existe esa columna, se actualiza color
     if (actual != nullptr && actual->columna == columna) {
         actual->color = color;
         return actual;
     }
 
-    // No existe, la creamos en la posición correcta
+    // No existe, se crea en la posición correcta
     NodoMatriz* nueva = new NodoMatriz(nodoFila->fila, columna, color);
     nueva->derecha = actual;
     anterior->derecha = nueva;
@@ -80,14 +80,14 @@ void MatrizDispersa::insertarPixel(int fila, int columna, string color) {
 string MatrizDispersa::obtenerColor(int fila, int columna) {
     NodoMatriz* actual = cabeza;
 
-    // Buscamos la fila
+    // Busca la fila
     while (actual != nullptr && actual->fila < fila) {
         actual = actual->abajo;
     }
 
     if (actual == nullptr || actual->fila != fila) return "";
 
-    // Buscamos la columna
+    // Busca la columna
     NodoMatriz* col = actual->derecha;
     while (col != nullptr && col->columna < columna) {
         col = col->derecha;
