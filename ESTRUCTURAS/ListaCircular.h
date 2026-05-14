@@ -1,13 +1,21 @@
-//
-// Created by Arenz Pelaez on 13/05/26.
-//
-
 #ifndef PROYECTO_FINAL_LISTACIRCULAR_H
 #define PROYECTO_FINAL_LISTACIRCULAR_H
 
+#include "../Structs.h"
+#include "ABBCapas.h"
 
 class ListaCircular {
+private:
+    NodoImagen* cabeza;
+
+public:
+    ListaCircular();
+    void insertarImagen(int id);
+    NodoImagen* buscarImagen(int id);
+    void eliminarImagen(int id);
+    void agregarCapaAImagen(int idImagen, NodoABBCapa* refCapa);
+    NodoImagen* getCabeza();
+    bool estaVacia();
 };
 
-
-#endif //PROYECTO_FINAL_LISTACIRCULAR_H
+#endif
