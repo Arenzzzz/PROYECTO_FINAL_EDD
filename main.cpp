@@ -2,34 +2,45 @@
 #include "Structs.h"
 #include "ESTRUCTURAS/MatrizDispersa.h"
 #include "ESTRUCTURAS/ABBCapas.h"
+#include "ESTRUCTURAS/ListaCircular.h"
 using namespace std;
 
 int main() {
     ABBCapas arbol;
+    ListaCircular lista;
 
-    // Insertar capas
-    arbol.insertarCapa(3);
-    arbol.insertarCapa(2);
-    arbol.insertarCapa(5);
+    // Insertar capas en el ABB
     arbol.insertarCapa(1);
-    arbol.insertarCapa(4);
+    arbol.insertarCapa(2);
+    arbol.insertarCapa(3);
 
-    // Insertar píxeles en capa 3
-    arbol.insertarPixelEnCapa(3, 2, 4, "#e74c3c");
-    arbol.insertarPixelEnCapa(3, 2, 5, "#e74c3c");
-    arbol.insertarPixelEnCapa(3, 3, 3, "#e74c3c");
+    // Insertar imágenes en la lista circular
+    lista.insertarImagen(10);
+    lista.insertarImagen(5);
+    lista.insertarImagen(20);
 
-    // Buscar capas
-    NodoABBCapa* capa3 = arbol.buscarCapa(3);
-    NodoABBCapa* capa99 = arbol.buscarCapa(99);
+    // Agregar capas a imagen 10
+    lista.agregarCapaAImagen(10, arbol.buscarCapa(1));
+    lista.agregarCapaAImagen(10, arbol.buscarCapa(2));
 
-    if (capa3 != nullptr) {
-        cout << "Capa 3 encontrada, ID: " << capa3->id << endl;
-        cout << "Pixel (2,4): " << capa3->matrizObj->obtenerColor(2, 4) << endl;
+    // Agregar capas a imagen 5
+    lista.agregarCapaAImagen(5, arbol.buscarCapa(3));
+
+    // Verificar
+    NodoImagen* img10 = lista.buscarImagen(10);
+    NodoImagen* img99 = lista.buscarImagen(99);
+
+    if (img10 != nullptr) {
+        cout << "Imagen 10 encontrada" << endl;
+        NodoCapa* cap = img10->imagen.listaCapas;
+        while (cap != nullptr) {
+            cout << "  -> Capa ID: " << cap->refCapa->id << endl;
+            cap = cap->siguiente;
+        }
     }
 
-    if (capa99 == nullptr) {
-        cout << "Capa 99 no existe" << endl;
+    if (img99 == nullptr) {
+        cout << "Imagen 99 no existe" << endl;
     }
 
     return 0;
