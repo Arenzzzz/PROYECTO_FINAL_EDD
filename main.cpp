@@ -1,46 +1,45 @@
 #include <iostream>
 #include "Structs.h"
-#include "ESTRUCTURAS/MatrizDispersa.h"
-#include "ESTRUCTURAS/ABBCapas.h"
-#include "ESTRUCTURAS/ListaCircular.h"
+#include "ESTRUCTURAS/ABBUsuarios.h"
 using namespace std;
 
 int main() {
-    ABBCapas arbol;
-    ListaCircular lista;
+    ABBUsuarios arbol;
 
-    // Insertar capas en el ABB
-    arbol.insertarCapa(1);
-    arbol.insertarCapa(2);
-    arbol.insertarCapa(3);
+    // Insertar usuarios
+    arbol.insertarUsuario("userM");
+    arbol.insertarUsuario("userB");
+    arbol.insertarUsuario("userY");
+    arbol.insertarUsuario("userA");
+    arbol.insertarUsuario("userZ");
 
-    // Insertar imágenes en la lista circular
-    lista.insertarImagen(10);
-    lista.insertarImagen(5);
-    lista.insertarImagen(20);
+    // Agregar imágenes a usuarios
+    arbol.agregarImagenAUsuario("userA", 13);
+    arbol.agregarImagenAUsuario("userA", 14);
+    arbol.agregarImagenAUsuario("userY", 8);
+    arbol.agregarImagenAUsuario("userY", 9);
+    arbol.agregarImagenAUsuario("userY", 10);
 
-    // Agregar capas a imagen 10
-    lista.agregarCapaAImagen(10, arbol.buscarCapa(1));
-    lista.agregarCapaAImagen(10, arbol.buscarCapa(2));
-
-    // Agregar capas a imagen 5
-    lista.agregarCapaAImagen(5, arbol.buscarCapa(3));
-
-    // Verificar
-    NodoImagen* img10 = lista.buscarImagen(10);
-    NodoImagen* img99 = lista.buscarImagen(99);
-
-    if (img10 != nullptr) {
-        cout << "Imagen 10 encontrada" << endl;
-        NodoCapa* cap = img10->imagen.listaCapas;
-        while (cap != nullptr) {
-            cout << "  -> Capa ID: " << cap->refCapa->id << endl;
-            cap = cap->siguiente;
+    // Verificar búsqueda
+    NodoABBUsuario* userA = arbol.buscarUsuario("userA");
+    if (userA != nullptr) {
+        cout << "Usuario encontrado: " << userA->nombre << endl;
+        NodoImgUsuario* img = userA->listaImagenes;
+        while (img != nullptr) {
+            cout << "  -> Imagen ID: " << img->idImagen << endl;
+            img = img->siguiente;
         }
     }
 
-    if (img99 == nullptr) {
-        cout << "Imagen 99 no existe" << endl;
+    // Verificar eliminación
+    arbol.eliminarUsuario("userB");
+    if (arbol.buscarUsuario("userB") == nullptr) {
+        cout << "userB eliminado correctamente" << endl;
+    }
+
+    // Usuario inexistente
+    if (arbol.buscarUsuario("userX") == nullptr) {
+        cout << "userX no existe" << endl;
     }
 
     return 0;

@@ -1,13 +1,24 @@
-//
-// Created by Arenz Pelaez on 13/05/26.
-//
-
 #ifndef PROYECTO_FINAL_ABBUSUARIOS_H
 #define PROYECTO_FINAL_ABBUSUARIOS_H
 
+#include "../Structs.h"
 
 class ABBUsuarios {
+private:
+    NodoABBUsuario* raiz;
+
+    NodoABBUsuario* insertar(NodoABBUsuario* nodo, string nombre);
+    NodoABBUsuario* buscar(NodoABBUsuario* nodo, string nombre);
+    NodoABBUsuario* minimoNodo(NodoABBUsuario* nodo);
+    NodoABBUsuario* eliminar(NodoABBUsuario* nodo, string nombre);
+
+public:
+    ABBUsuarios();
+    void insertarUsuario(string nombre);
+    NodoABBUsuario* buscarUsuario(string nombre);
+    void eliminarUsuario(string nombre);
+    void agregarImagenAUsuario(string nombre, int idImagen);
+    NodoABBUsuario* getRaiz();
 };
 
-
-#endif //PROYECTO_FINAL_ABBUSUARIOS_H
+#endif
