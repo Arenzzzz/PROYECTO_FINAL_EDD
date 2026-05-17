@@ -1,45 +1,49 @@
 #include <iostream>
 #include "Structs.h"
+#include "ESTRUCTURAS/ABBCapas.h"
+#include "ESTRUCTURAS/ListaCircular.h"
 #include "ESTRUCTURAS/ABBUsuarios.h"
+#include "UTILS/CargaMasiva.h"
 using namespace std;
 
 int main() {
-    ABBUsuarios arbol;
+    ABBCapas arbolCapas;
+    ListaCircular listaImagenes;
+    ABBUsuarios arbolUsuarios;
+    CargaMasiva carga;
 
-    // Insertar usuarios
-    arbol.insertarUsuario("userM");
-    arbol.insertarUsuario("userB");
-    arbol.insertarUsuario("userY");
-    arbol.insertarUsuario("userA");
-    arbol.insertarUsuario("userZ");
+    // Carga masiva en orden correcto
+    carga.cargarCapas("ARCHIVOS/capas.cap", arbolCapas);
+    carga.cargarImagenes("ARCHIVOS/imagenes.im", listaImagenes, arbolCapas);
+    carga.cargarUsuarios("ARCHIVOS/usuarios.usr", arbolUsuarios, listaImagenes);
 
-    // Agregar imágenes a usuarios
-    arbol.agregarImagenAUsuario("userA", 13);
-    arbol.agregarImagenAUsuario("userA", 14);
-    arbol.agregarImagenAUsuario("userY", 8);
-    arbol.agregarImagenAUsuario("userY", 9);
-    arbol.agregarImagenAUsuario("userY", 10);
+    cout << "\n--- Verificando Capas ---" << endl;
+    NodoABBCapa* capa1 = arbolCapas.buscarCapa(1);
+    if (capa1 != nullptr) {
+        cout << "Capa 1 encontrada" << endl;
+        cout << "Pixel (2,4): " << capa1->matrizObj->obtenerColor(2, 4) << endl;
+    }
 
-    // Verificar búsqueda
-    NodoABBUsuario* userA = arbol.buscarUsuario("userA");
+    cout << "\n--- Verificando Imagenes ---" << endl;
+    NodoImagen* img1 = listaImagenes.buscarImagen(1);
+    if (img1 != nullptr) {
+        cout << "Imagen 1 encontrada, capas:" << endl;
+        NodoCapa* cap = img1->imagen.listaCapas;
+        while (cap != nullptr) {
+            cout << "  -> Capa ID: " << cap->refCapa->id << endl;
+            cap = cap->siguiente;
+        }
+    }
+
+    cout << "\n--- Verificando Usuarios ---" << endl;
+    NodoABBUsuario* userA = arbolUsuarios.buscarUsuario("userA");
     if (userA != nullptr) {
-        cout << "Usuario encontrado: " << userA->nombre << endl;
+        cout << "Usuario userA encontrado, imagenes:" << endl;
         NodoImgUsuario* img = userA->listaImagenes;
         while (img != nullptr) {
             cout << "  -> Imagen ID: " << img->idImagen << endl;
             img = img->siguiente;
         }
-    }
-
-    // Verificar eliminación
-    arbol.eliminarUsuario("userB");
-    if (arbol.buscarUsuario("userB") == nullptr) {
-        cout << "userB eliminado correctamente" << endl;
-    }
-
-    // Usuario inexistente
-    if (arbol.buscarUsuario("userX") == nullptr) {
-        cout << "userX no existe" << endl;
     }
 
     return 0;
