@@ -15,8 +15,7 @@ string CargaMasiva::trim(string str) {
     return str.substr(inicio, fin - inicio + 1);
 }
 
-// Lee archivo .cap e inserta capas en el ABB
-void CargaMasiva::cargarCapas(string ruta, ABBCapas& arbolCapas) {
+Mejvoid CargaMasiva::cargarCapas(string ruta, ABBCapas& arbolCapas) {
     ifstream archivo(ruta);
     if (!archivo.is_open()) {
         cout << "Error al abrir: " << ruta << endl;
@@ -28,9 +27,9 @@ void CargaMasiva::cargarCapas(string ruta, ABBCapas& arbolCapas) {
 
     while (getline(archivo, linea)) {
         linea = trim(linea);
-        if (linea.empty()) continue;
+        if (linea.empty()) continue;  // ignora líneas vacías
 
-        // Línea con solo "}" cierra la capa
+        // Línea de cierre
         if (linea == "}") {
             idCapa = -1;
             continue;
@@ -39,14 +38,23 @@ void CargaMasiva::cargarCapas(string ruta, ABBCapas& arbolCapas) {
         // Línea con "{" define el ID de la capa
         if (linea.find('{') != string::npos) {
             string idStr = linea.substr(0, linea.find('{'));
-            idCapa = stoi(trim(idStr));
+            idStr = trim(idStr);
+
+            // Si no hay ID antes del "{", asignar el siguiente disponible
+            if (idStr.empty()) {
+                // Buscar el mayor ID actual y sumar 1
+                idCapa = 1;
+                while (arbolCapas.buscarCapa(idCapa) != nullptr) idCapa++;
+            } else {
+                idCapa = stoi(idStr);
+            }
+
             arbolCapas.insertarCapa(idCapa);
             continue;
         }
 
         // Línea de píxel: fila,columna,color;
         if (idCapa != -1 && linea.find(',') != string::npos) {
-            // Quitar el punto y coma final
             if (!linea.empty() && linea.back() == ';') {
                 linea.pop_back();
             }
@@ -61,7 +69,7 @@ void CargaMasiva::cargarCapas(string ruta, ABBCapas& arbolCapas) {
             int col = stoi(trim(colStr));
             color = trim(color);
 
-            arbolCapas.insertarPixelEnCapa(idCapa, fila, col, color);
+            arbolCapas.insertaarPixelEnCapa(idCapa, fila, col, color);
         }
     }
 

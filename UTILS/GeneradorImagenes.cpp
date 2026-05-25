@@ -89,7 +89,6 @@ void GeneradorImagenes::escribirPPM(string nombreArchivo) {
 
     archivo.close();
     cout << "Imagen generada: REPORTES/" << nombreArchivo << ".ppm" << endl;
-    cout << "Abrila con Preview en macOS." << endl;
 }
 
 // Recolecta nodos en preorden hasta el límite
