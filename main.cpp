@@ -5,6 +5,7 @@
 #include "ESTRUCTURAS/ABBUsuarios.h"
 #include "UTILS/CargaMasiva.h"
 #include "UTILS/Graphviz.h"
+#include "UTILS/GeneradorImagenes.h"
 using namespace std;
 
 // Instancias globales
@@ -13,6 +14,7 @@ ListaCircular listaImagenes;
 ABBUsuarios arbolUsuarios;
 CargaMasiva carga;
 Graphviz graphviz;
+GeneradorImagenes generador;
 
 void cargarDatos() {
     cout << "========================================" << endl;
@@ -105,32 +107,74 @@ void menuCRUDImagenes() {
 
 void menuGeneracion() {
     int opcion;
-    cout << "\n========== GENERACIÓN DE IMÁGENES ==========" << endl;
+    cout << "\n========== GENERACION DE IMAGENES ==========" << endl;
     cout << "1. Por recorrido limitado" << endl;
-    cout << "2. Por lista de imágenes" << endl;
+    cout << "2. Por lista de imagenes" << endl;
     cout << "3. Por capa" << endl;
     cout << "4. Por usuario" << endl;
     cout << "0. Volver" << endl;
-    cout << "Opción: ";
+    cout << "Opcion: ";
     cin >> opcion;
 
     switch (opcion) {
-        case 1:
-            cout << "[Proximamente] Generacion por recorrido limitado" << endl;
+        case 1: {
+            int limite, tipo;
+            cout << "Numero de capas a utilizar: ";
+            cin >> limite;
+            cout << "Tipo de recorrido:" << endl;
+            cout << "  1. Inorden" << endl;
+            cout << "  2. Preorden" << endl;
+            cout << "  3. Postorden" << endl;
+            cout << "Opcion: ";
+            cin >> tipo;
+            generador.generarPorRecorridoLimitado(arbolCapas.getRaiz(), limite, tipo);
             break;
-        case 2:
-            cout << "[Proximamente] Generacion por lista de imagenes" << endl;
+        }
+        case 2: {
+            int idImg;
+            cout << "ID de la imagen: ";
+            cin >> idImg;
+            NodoImagen* img = listaImagenes.buscarImagen(idImg);
+            if (img == nullptr) {
+                cout << "Imagen " << idImg << " no encontrada." << endl;
+            } else {
+                generador.generarPorListaImagenes(img);
+            }
             break;
-        case 3:
-            cout << "[Proximamente] Generacion por capa" << endl;
+        }
+        case 3: {
+            int idCapa;
+            cout << "ID de la capa: ";
+            cin >> idCapa;
+            generador.generarPorCapa(arbolCapas.buscarCapa(idCapa));
             break;
-        case 4:
-            cout << "[Proximamente] Generacion por usuario" << endl;
+        }
+        case 4: {
+            string nombreUsuario;
+            int idImg;
+            cout << "Nombre del usuario: ";
+            cin >> nombreUsuario;
+            NodoABBUsuario* usuario = arbolUsuarios.buscarUsuario(nombreUsuario);
+            if (usuario == nullptr) {
+                cout << "Usuario no encontrado." << endl;
+                break;
+            }
+            cout << "Imagenes del usuario: ";
+            NodoImgUsuario* imgUsr = usuario->listaImagenes;
+            while (imgUsr != nullptr) {
+                cout << imgUsr->idImagen << " ";
+                imgUsr = imgUsr->siguiente;
+            }
+            cout << endl;
+            cout << "ID de la imagen a generar: ";
+            cin >> idImg;
+            generador.generarPorUsuario(usuario, idImg, listaImagenes);
             break;
+        }
         case 0:
             break;
         default:
-            cout << "Opción invalida." << endl;
+            cout << "Opcion invalida." << endl;
     }
 }
 

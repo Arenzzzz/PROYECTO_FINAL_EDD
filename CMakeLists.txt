@@ -17,6 +17,8 @@ add_executable(PROYECTO_FINAL main.cpp
         UTILS/Graphviz.cpp
         UTILS/Graphviz.h
         Structs.h
+        UTILS/GeneradorImagenes.cpp
+        UTILS/GeneradorImagenes.h
 )
 
 file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/REPORTES)
