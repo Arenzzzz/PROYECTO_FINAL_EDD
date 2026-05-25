@@ -1,0 +1,10 @@
+digraph ArbolUsuarios {
+    node [shape=box, style=filled, fillcolor="#8e44ad", fontcolor=white];
+    user_userM [label="userM\nImagenes: "];
+    user_userM -> user_userB;
+    user_userM -> user_userY;
+    user_userB [label="userB\nImagenes: "];
+    user_userB -> user_userA;
+    user_userA [label="userA\nImagenes: 1, 2"];
+    user_userY [label="userY\nImagenes: 2, 3"];
+}

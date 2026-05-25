@@ -1,0 +1,8 @@
+digraph ArbolCapas {
+    node [shape=box, style=filled, fillcolor="#2c3e50", fontcolor=white];
+    capa1 [label="Capa 1"];
+    capa1 -> capa2;
+    capa2 [label="Capa 2"];
+    capa2 -> capa3;
+    capa3 [label="Capa 3"];
+}

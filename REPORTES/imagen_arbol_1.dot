@@ -1,0 +1,15 @@
+digraph ImagenArbol {
+    node [shape=box, style=filled];
+    img1 [label="Imagen 1", fillcolor="#e74c3c", fontcolor=white];
+    listaCapa2 [label="Capa 2", fillcolor="#e67e22", fontcolor=white];
+    img1 -> listaCapa2;
+    listaCapa2 -> capa2 [style=dashed, color="#e74c3c"];
+    listaCapa3 [label="Capa 3", fillcolor="#e67e22", fontcolor=white];
+    listaCapa2 -> listaCapa3;
+    listaCapa3 -> capa3 [style=dashed, color="#e74c3c"];
+    capa1 [label="Capa 1", fillcolor="#2c3e50", fontcolor=white];
+    capa1 -> capa2;
+    capa2 [label="Capa 2", fillcolor="#2c3e50", fontcolor=white];
+    capa2 -> capa3;
+    capa3 [label="Capa 3", fillcolor="#2c3e50", fontcolor=white];
+}
