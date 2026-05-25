@@ -4,6 +4,7 @@
 #include "ESTRUCTURAS/ListaCircular.h"
 #include "ESTRUCTURAS/ABBUsuarios.h"
 #include "UTILS/CargaMasiva.h"
+#include "UTILS/Graphviz.h"
 using namespace std;
 
 // Instancias globales
@@ -11,6 +12,7 @@ ABBCapas arbolCapas;
 ListaCircular listaImagenes;
 ABBUsuarios arbolUsuarios;
 CargaMasiva carga;
+Graphviz graphviz;
 
 void cargarDatos() {
     cout << "========================================" << endl;
@@ -29,7 +31,7 @@ void menuCRUDUsuarios() {
     cout << "2. Eliminar usuario" << endl;
     cout << "3. Buscar usuario" << endl;
     cout << "0. Volver" << endl;
-    cout << "Opcion: ";
+    cout << "Opción: ";
     cin >> opcion;
 
     string nombre;
@@ -57,17 +59,17 @@ void menuCRUDUsuarios() {
         case 0:
             break;
         default:
-            cout << "Opcion invalida." << endl;
+            cout << "Opcion inválida." << endl;
     }
 }
 
 void menuCRUDImagenes() {
     int opcion;
-    cout << "\n========== CRUD IMAGENES ==========" << endl;
+    cout << "\n========== CRUD IMÁGENES ==========" << endl;
     cout << "1. Agregar imagen" << endl;
     cout << "2. Eliminar imagen" << endl;
     cout << "0. Volver" << endl;
-    cout << "Opcion: ";
+    cout << "Opción: ";
     cin >> opcion;
 
     switch (opcion) {
@@ -97,19 +99,19 @@ void menuCRUDImagenes() {
         case 0:
             break;
         default:
-            cout << "Opcion invalida." << endl;
+            cout << "Opción inválida." << endl;
     }
 }
 
 void menuGeneracion() {
     int opcion;
-    cout << "\n========== GENERACION DE IMAGENES ==========" << endl;
+    cout << "\n========== GENERACIÓN DE IMÁGENES ==========" << endl;
     cout << "1. Por recorrido limitado" << endl;
-    cout << "2. Por lista de imagenes" << endl;
+    cout << "2. Por lista de imágenes" << endl;
     cout << "3. Por capa" << endl;
     cout << "4. Por usuario" << endl;
     cout << "0. Volver" << endl;
-    cout << "Opcion: ";
+    cout << "Opción: ";
     cin >> opcion;
 
     switch (opcion) {
@@ -128,7 +130,7 @@ void menuGeneracion() {
         case 0:
             break;
         default:
-            cout << "Opcion invalida." << endl;
+            cout << "Opción invalida." << endl;
     }
 }
 
@@ -146,27 +148,27 @@ void menuEstadoMemoria() {
 
     switch (opcion) {
         case 1:
-            cout << "[Proximamente] Lista circular de imagenes" << endl;
+            graphviz.graficarListaImagenes(listaImagenes.getCabeza());
             break;
         case 2:
-            cout << "[Proximamente] Arbol de capas" << endl;
+            graphviz.graficarArbolCapas(arbolCapas.getRaiz());
             break;
         case 3: {
             int idCapa;
             cout << "ID de la capa: ";
             cin >> idCapa;
-            cout << "[Proximamente] Capa " << idCapa << endl;
+            graphviz.graficarCapa(arbolCapas.buscarCapa(idCapa));
             break;
         }
         case 4: {
             int idImg;
             cout << "ID de la imagen: ";
             cin >> idImg;
-            cout << "[Proximamente] Imagen " << idImg << " y su arbol" << endl;
+            graphviz.graficarImagenYArbol(listaImagenes.buscarImagen(idImg), arbolCapas.getRaiz());
             break;
         }
         case 5:
-            cout << "[Proximamente] Arbol de usuarios" << endl;
+            graphviz.graficarArbolUsuarios(arbolUsuarios.getRaiz());
             break;
         case 0:
             break;
@@ -182,14 +184,14 @@ int main() {
     int opcion;
     do {
         cout << "\n========================================" << endl;
-        cout << "   GENERADOR DE IMAGENES POR CAPAS      " << endl;
+        cout << "   GENERADOR DE IMÁGENES POR CAPAS      " << endl;
         cout << "========================================" << endl;
-        cout << "1. Generacion de Imagenes" << endl;
+        cout << "1. Generación de Imágenes" << endl;
         cout << "2. CRUD Usuarios" << endl;
-        cout << "3. CRUD Imagenes" << endl;
+        cout << "3. CRUD Imágenes" << endl;
         cout << "4. Estado de Memoria" << endl;
         cout << "0. Salir" << endl;
-        cout << "Opcion: ";
+        cout << "Opción: ";
         cin >> opcion;
 
         switch (opcion) {
@@ -198,7 +200,7 @@ int main() {
             case 3: menuCRUDImagenes(); break;
             case 4: menuEstadoMemoria(); break;
             case 0: cout << "Saliendo..." << endl; break;
-            default: cout << "Opcion invalida." << endl;
+            default: cout << "Opción inválida." << endl;
         }
     } while (opcion != 0);
 
