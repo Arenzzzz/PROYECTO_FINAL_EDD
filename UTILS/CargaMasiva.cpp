@@ -15,7 +15,7 @@ string CargaMasiva::trim(string str) {
     return str.substr(inicio, fin - inicio + 1);
 }
 
-Mejvoid CargaMasiva::cargarCapas(string ruta, ABBCapas& arbolCapas) {
+void CargaMasiva::cargarCapas(string ruta, ABBCapas& arbolCapas) {
     ifstream archivo(ruta);
     if (!archivo.is_open()) {
         cout << "Error al abrir: " << ruta << endl;
@@ -69,7 +69,7 @@ Mejvoid CargaMasiva::cargarCapas(string ruta, ABBCapas& arbolCapas) {
             int col = stoi(trim(colStr));
             color = trim(color);
 
-            arbolCapas.insertaarPixelEnCapa(idCapa, fila, col, color);
+            arbolCapas.insertarPixelEnCapa(idCapa, fila, col, color);
         }
     }
 
