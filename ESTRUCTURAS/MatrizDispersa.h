@@ -30,6 +30,7 @@ private:
 
 public:
     MatrizDispersa();
+    ~MatrizDispersa(); // Destructor
     void insertarPixel(int fila, int columna, string color);
     string obtenerColor(int fila, int columna);
     NodoMatriz* getCabeza();

@@ -4,6 +4,24 @@ MatrizDispersa::MatrizDispersa() {
     cabeza = nullptr;
 }
 
+MatrizDispersa::~MatrizDispersa() {
+    NodoMatriz* fila = cabeza;
+    while (fila != nullptr) {
+        // Liberar todos los nodos de columna de esta fila
+        NodoMatriz* col = fila->derecha;
+        while (col != nullptr) {
+            NodoMatriz* tempCol = col;
+            col = col->derecha;
+            delete tempCol;
+        }
+        // Liberar el nodo de fila
+        NodoMatriz* tempFila = fila;
+        fila = fila->abajo;
+        delete tempFila;
+    }
+    cabeza = nullptr;
+}
+
 NodoMatriz* MatrizDispersa::getCabeza() {
     return cabeza;
 }
