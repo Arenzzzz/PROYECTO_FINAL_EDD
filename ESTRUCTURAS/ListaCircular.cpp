@@ -6,6 +6,29 @@ ListaCircular::ListaCircular() {
     cabeza = nullptr;
 }
 
+ListaCircular::~ListaCircular() {
+    if (cabeza == nullptr) return;
+
+    // Romper la circularidad para poder recorrer
+    NodoImagen* ultimo = cabeza->anterior;
+    ultimo->siguiente = nullptr;
+
+    NodoImagen* actual = cabeza;
+    while (actual != nullptr) {
+        // Liberar lista de capas de cada imagen
+        NodoCapa* cap = actual->imagen.listaCapas;
+        while (cap != nullptr) {
+            NodoCapa* tempCap = cap;
+            cap = cap->siguiente;
+            delete tempCap;
+        }
+        NodoImagen* tempImg = actual;
+        actual = actual->siguiente;
+        delete tempImg;
+    }
+    cabeza = nullptr;
+}
+
 NodoImagen* ListaCircular::getCabeza() {
     return cabeza;
 }
