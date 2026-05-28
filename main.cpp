@@ -221,6 +221,43 @@ void menuEstadoMemoria() {
     }
 }
 
+void menuCargaMasiva() {
+    int opcion;
+    cout << "\n========== CARGA MASIVA ==========" << endl;
+    cout << "1. Cargar Capas (.cap)" << endl;
+    cout << "2. Cargar Imagenes (.im)" << endl;
+    cout << "3. Cargar Usuarios (.usr)" << endl;
+    cout << "4. Cargar Todo (orden correcto)" << endl;
+    cout << "0. Volver" << endl;
+    cout << "Opcion: ";
+    cin >> opcion;
+
+    string ruta;
+    switch (opcion) {
+        case 1:
+            ruta = carga.seleccionarArchivo("Seleccionar archivo de Capas", "cap");
+            if (!ruta.empty()) carga.cargarCapas(ruta, arbolCapas);
+            break;
+        case 2:
+            ruta = carga.seleccionarArchivo("Seleccionar archivo de Imagenes", "im");
+            if (!ruta.empty()) carga.cargarImagenes(ruta, listaImagenes, arbolCapas);
+            break;
+        case 3:
+            ruta = carga.seleccionarArchivo("Seleccionar archivo de Usuarios", "usr");
+            if (!ruta.empty()) carga.cargarUsuarios(ruta, arbolUsuarios, listaImagenes);
+            break;
+        case 4:
+            carga.cargarCapas("ARCHIVOS/capas.cap", arbolCapas);
+            carga.cargarImagenes("ARCHIVOS/imagenes.im", listaImagenes, arbolCapas);
+            carga.cargarUsuarios("ARCHIVOS/usuarios.usr", arbolUsuarios, listaImagenes);
+            break;
+        case 0:
+            break;
+        default:
+            cout << "Opcion invalida." << endl;
+    }
+}
+
 int main() {
     // Carga automática al iniciar
     cargarDatos();
@@ -234,6 +271,7 @@ int main() {
         cout << "2. CRUD Usuarios" << endl;
         cout << "3. CRUD Imágenes" << endl;
         cout << "4. Estado de Memoria" << endl;
+        cout << "5. Carga de Datos" << endl;
         cout << "0. Salir" << endl;
         cout << "Opción: ";
         cin >> opcion;
@@ -243,6 +281,7 @@ int main() {
             case 2: menuCRUDUsuarios(); break;
             case 3: menuCRUDImagenes(); break;
             case 4: menuEstadoMemoria(); break;
+            case 5: menuCargaMasiva(); break;
             case 0: cout << "Saliendo..." << endl; break;
             default: cout << "Opción inválida." << endl;
         }
