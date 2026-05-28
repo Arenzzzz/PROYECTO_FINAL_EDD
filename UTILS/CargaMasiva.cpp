@@ -2,9 +2,40 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <cstdio>
+#include <memory>
 using namespace std;
 
 CargaMasiva::CargaMasiva() {}
+
+// Abre diálogo nativo de macOS para seleccionar archivo
+string CargaMasiva::seleccionarArchivo(string titulo, string extension) {
+    string script =
+        "osascript -e 'tell application \"System Events\" to activate' "
+        "-e 'POSIX path of (choose file with prompt \"" + titulo + "\" "
+        "of type {\"" + extension + "\"})'";
+
+    char buffer[512];
+    string resultado = "";
+
+    FILE* pipe = popen(script.c_str(), "r");
+    if (!pipe) {
+        cout << "Error al abrir dialogo." << endl;
+        return "";
+    }
+
+    while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
+        resultado += buffer;
+    }
+    pclose(pipe);
+
+    // Quitar el salto de línea al final
+    if (!resultado.empty() && resultado.back() == '\n') {
+        resultado.pop_back();
+    }
+
+    return resultado;
+}
 
 // Elimina espacios al inicio y al final de un string
 string CargaMasiva::trim(string str) {
