@@ -7,12 +7,13 @@
 class ABBCapas {
 private:
     NodoABBCapa* raiz;
-
     NodoABBCapa* insertar(NodoABBCapa* nodo, int id);
     NodoABBCapa* buscar(NodoABBCapa* nodo, int id);
+    void destruir(NodoABBCapa* nodo);
 
 public:
     ABBCapas();
+    ~ABBCapas(); // Destructor
     void insertarCapa(int id);
     NodoABBCapa* buscarCapa(int id);
     void insertarPixelEnCapa(int idCapa, int fila, int columna, string color);

@@ -10,6 +10,7 @@ private:
 
 public:
     ListaCircular();
+    ~ListaCircular(); // Destructor
     void insertarImagen(int id);
     NodoImagen* buscarImagen(int id);
     void eliminarImagen(int id);

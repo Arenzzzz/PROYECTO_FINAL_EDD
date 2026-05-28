@@ -14,6 +14,7 @@ private:
 
 public:
     CargaMasiva();
+    string seleccionarArchivo(string titulo, string extension); // Método de selección de archivos
     void cargarCapas(string ruta, ABBCapas& arbolCapas);
     void cargarImagenes(string ruta, ListaCircular& listaImagenes, ABBCapas& arbolCapas);
     void cargarUsuarios(string ruta, ABBUsuarios& arbolUsuarios, ListaCircular& listaImagenes);

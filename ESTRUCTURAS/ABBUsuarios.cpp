@@ -6,6 +6,26 @@ ABBUsuarios::ABBUsuarios() {
     raiz = nullptr;
 }
 
+void ABBUsuarios::destruir(NodoABBUsuario* nodo) {
+    if (nodo == nullptr) return;
+    destruir(nodo->izquierda);
+    destruir(nodo->derecha);
+
+    // Liberar lista de imágenes del usuario
+    NodoImgUsuario* img = nodo->listaImagenes;
+    while (img != nullptr) {
+        NodoImgUsuario* temp = img;
+        img = img->siguiente;
+        delete temp;
+    }
+    delete nodo;
+}
+
+ABBUsuarios::~ABBUsuarios() {
+    destruir(raiz);
+    raiz = nullptr;
+}
+
 NodoABBUsuario* ABBUsuarios::getRaiz() {
     return raiz;
 }

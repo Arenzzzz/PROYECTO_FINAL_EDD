@@ -12,8 +12,11 @@ private:
     NodoABBUsuario* minimoNodo(NodoABBUsuario* nodo);
     NodoABBUsuario* eliminar(NodoABBUsuario* nodo, string nombre);
 
+    void destruir(NodoABBUsuario* nodo);
+
 public:
     ABBUsuarios();
+    ~ABBUsuarios(); // Destructor
     void insertarUsuario(string nombre);
     NodoABBUsuario* buscarUsuario(string nombre);
     void eliminarUsuario(string nombre);
