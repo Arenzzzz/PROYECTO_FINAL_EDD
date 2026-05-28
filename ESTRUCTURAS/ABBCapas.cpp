@@ -6,6 +6,24 @@ ABBCapas::ABBCapas() {
     raiz = nullptr;
 }
 
+// Destructor recursivo privado
+void ABBCapas::destruir(NodoABBCapa* nodo) {
+    if (nodo == nullptr) return;
+    destruir(nodo->izquierda);
+    destruir(nodo->derecha);
+    // Liberar la matriz dispersa de la capa
+    if (nodo->matrizObj != nullptr) {
+        delete nodo->matrizObj;
+        nodo->matrizObj = nullptr;
+    }
+    delete nodo;
+}
+
+ABBCapas::~ABBCapas() {
+    destruir(raiz);
+    raiz = nullptr;
+}
+
 NodoABBCapa* ABBCapas::getRaiz() {
     return raiz;
 }
