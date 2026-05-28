@@ -61,7 +61,7 @@ void menuCRUDUsuarios() {
         case 0:
             break;
         default:
-            cout << "Opcion inválida." << endl;
+            cout << "Opción inválida." << endl;
     }
 }
 
@@ -107,25 +107,25 @@ void menuCRUDImagenes() {
 
 void menuGeneracion() {
     int opcion;
-    cout << "\n========== GENERACION DE IMAGENES ==========" << endl;
+    cout << "\n========== GENERACIÓN DE IMÁGENES ==========" << endl;
     cout << "1. Por recorrido limitado" << endl;
-    cout << "2. Por lista de imagenes" << endl;
+    cout << "2. Por lista de imágenes" << endl;
     cout << "3. Por capa" << endl;
     cout << "4. Por usuario" << endl;
     cout << "0. Volver" << endl;
-    cout << "Opcion: ";
+    cout << "Opción: ";
     cin >> opcion;
 
     switch (opcion) {
         case 1: {
             int limite, tipo;
-            cout << "Numero de capas a utilizar: ";
+            cout << "Número de capas a utilizar: ";
             cin >> limite;
             cout << "Tipo de recorrido:" << endl;
             cout << "  1. Inorden" << endl;
             cout << "  2. Preorden" << endl;
             cout << "  3. Postorden" << endl;
-            cout << "Opcion: ";
+            cout << "Opción: ";
             cin >> tipo;
             generador.generarPorRecorridoLimitado(arbolCapas.getRaiz(), limite, tipo);
             break;
@@ -159,7 +159,7 @@ void menuGeneracion() {
                 cout << "Usuario no encontrado." << endl;
                 break;
             }
-            cout << "Imagenes del usuario: ";
+            cout << "Imágenes del usuario: ";
             NodoImgUsuario* imgUsr = usuario->listaImagenes;
             while (imgUsr != nullptr) {
                 cout << imgUsr->idImagen << " ";
@@ -174,20 +174,20 @@ void menuGeneracion() {
         case 0:
             break;
         default:
-            cout << "Opcion invalida." << endl;
+            cout << "Opción inválida." << endl;
     }
 }
 
 void menuEstadoMemoria() {
     int opcion;
     cout << "\n========== ESTADO DE MEMORIA ==========" << endl;
-    cout << "1. Ver lista de imagenes" << endl;
+    cout << "1. Ver lista de imágenes" << endl;
     cout << "2. Ver arbol de capas" << endl;
-    cout << "3. Ver capa especifica" << endl;
-    cout << "4. Ver imagen y arbol de capas" << endl;
-    cout << "5. Ver arbol de usuarios" << endl;
+    cout << "3. Ver capa específica" << endl;
+    cout << "4. Ver imagen y árbol de capas" << endl;
+    cout << "5. Ver árbol de usuarios" << endl;
     cout << "0. Volver" << endl;
-    cout << "Opcion: ";
+    cout << "Opción: ";
     cin >> opcion;
 
     switch (opcion) {
