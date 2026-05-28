@@ -95,6 +95,7 @@ void ABBUsuarios::eliminarUsuario(string nombre) {
         return;
     }
     raiz = eliminar(raiz, nombre);
+    cout << "Usuario " << nombre << " eliminado." << endl;
 }
 
 // Agrega imagen a la lista del usuario

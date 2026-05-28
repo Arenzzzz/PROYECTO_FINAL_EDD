@@ -96,6 +96,7 @@ void menuCRUDImagenes() {
             cout << "ID de la imagen a eliminar: ";
             cin >> idImg;
             listaImagenes.eliminarImagen(idImg);
+            cout << "Imagen "<< idImg << " eliminada." << endl;
             break;
         }
         case 0:
